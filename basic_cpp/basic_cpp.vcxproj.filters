@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="來源檔案">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="標頭檔">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="資源檔">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="來源檔案\funcParts">
+      <UniqueIdentifier>{7a3f1153-7e01-485b-95e0-a6334f6913ca}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>來源檔案</Filter>
+    </ClCompile>
+    <ClCompile Include="funcPart_00_09.cpp">
+      <Filter>來源檔案\funcParts</Filter>
+    </ClCompile>
+    <ClCompile Include="funcPart_10_19.cpp">
+      <Filter>來源檔案\funcParts</Filter>
+    </ClCompile>
+    <ClCompile Include="funcPart_20_29.cpp">
+      <Filter>來源檔案\funcParts</Filter>
+    </ClCompile>
+    <ClCompile Include="funcPart_30_39.cpp">
+      <Filter>來源檔案\funcParts</Filter>
+    </ClCompile>
+    <ClCompile Include="funcPart_40_49.cpp">
+      <Filter>來源檔案\funcParts</Filter>
+    </ClCompile>
+    <ClCompile Include="funcPart_50_59.cpp">
+      <Filter>來源檔案\funcParts</Filter>
+    </ClCompile>
+    <ClCompile Include="funcPart_60_69.cpp">
+      <Filter>來源檔案\funcParts</Filter>
+    </ClCompile>
+    <ClCompile Include="funcPart_70_79.cpp">
+      <Filter>來源檔案\funcParts</Filter>
+    </ClCompile>
+    <ClCompile Include="funcPart_80_89.cpp">
+      <Filter>來源檔案\funcParts</Filter>
+    </ClCompile>
+    <ClCompile Include="funcPart_90_99.cpp">
+      <Filter>來源檔案\funcParts</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="common.h">
+      <Filter>來源檔案</Filter>
+    </ClInclude>
+    <ClInclude Include="funcPart_10_19.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="funcPart_00_09.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="funcPart_20_29.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="funcPart_30_39.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="funcPart_40_49.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="funcPart_50_59.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="funcPart_60_69.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="funcPart_70_79.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="funcPart_80_89.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+    <ClInclude Include="funcPart_90_99.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
