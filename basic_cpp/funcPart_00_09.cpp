@@ -246,7 +246,7 @@ void funcPart00()
 //選擇性: 無限進行實驗
 #define Probability_Final_Project_2_INFINITE_LOOP_MODE true
 //選擇性: 停用全部
-#define Probability_Final_Project_2_STOP_MODE false
+#define Probability_Final_Project_2_STOP_MODE true
 //選擇性: 停用STRAIGHT
 #define Probability_Final_Project_2_STRAIGHT_STOP_MODE false
 //選擇性: 停用FULL_HOUSE
@@ -270,7 +270,7 @@ void funcPart01()
 
 	//使用時間作為亂數種子
 	std::mt19937 generator(time(nullptr));
-	std::uniform_int_distribution<int> Flowers_Random(0, NUMBER_OF_FLOWERS* NUMBER_OF_CARDS_PER_FLOWERS - 1);
+	std::uniform_int_distribution<int> Flowers_Random(0, NUMBER_OF_FLOWERS * NUMBER_OF_CARDS_PER_FLOWERS - 1);
 
 
 	/*常數範圍判斷*/
@@ -504,32 +504,327 @@ void funcPart01()
 #endif//!Probability_Final_Project_2_INFINITE_LOOP_MODE
 
 #endif //Probability_Final_Project_2_STOP_MODE
+}
+
+
+
+//選擇性: 無限進行實驗
+#define Probability_Final_Project_3_INFINITE_LOOP_MODE true
+//選擇性: 停用
+#define Probability_Final_Project_3_STOP true
+
+/*Probability Final Project -3*/
+void funcPart02()
+{
+#if !Probability_Final_Project_3_STOP
+	cull ALLEN_GOLD_BALL = 1;
+	cull ALLEN_WHITE_BALL = 2;
+	cull BENJAMIN_GOLD_BALL = 6;
+	cull BENJAMIN_WHITE_BALL = 4;
+
+	//隨機數生成器
+	srand(time(NULL));
+
+	//輸出設定
+#if !Probability_Final_Project_3_INFINITE_LOOP_MODE
+	//常數
+	PRECISION_float NUMBER_OF_EXPERIMENT_REPEATED = 100000;//做幾次實驗
+#else//Probability_Final_Project_3_INFINITE_LOOP_MODE
+	//常數
+	cull AFTER_X_EXPERIMENT_PRINT = 1000000000;//模擬x次後輸出1次
+
+	//變量
+	PRECISION_float cpp_dec_float_numberOfExperimentRepeated = 0;
+	ull ull_numberOfExperimentRepeated = 0;
+#endif//Probability_Final_Project_3_INFINITE_LOOP_MODE
+
+
+	//變量
+	PRECISION_float AllenSuccess = 0;//Allen的成功次數
+
+#if Probability_Final_Project_3_INFINITE_LOOP_MODE
+	while (true)
+	{
+#else
+	for (int j = 0; j < NUMBER_OF_EXPERIMENT_REPEATED; j++)
+	{
+#endif
+
+		std::pair<ull, ull> Allen = std::make_pair(ALLEN_GOLD_BALL, ALLEN_WHITE_BALL);//Allen數據結構
+		std::pair<ull, ull> Benjamin = std::make_pair(BENJAMIN_GOLD_BALL, BENJAMIN_WHITE_BALL);//Benjamin數據結構
+
+		while (1)
+		{
+			//核心模擬
+			if (rand() % (Allen.first + Allen.second) < ALLEN_GOLD_BALL)
+			{
+				AllenSuccess += 1;
+				break;
+			}
+			else
+			{
+				Allen.second -= 1;
+			}
+
+			if (rand() % (Benjamin.first + Benjamin.second) < BENJAMIN_GOLD_BALL)
+			{
+				break;
+			}
+			else
+			{
+				Benjamin.second -= 1;
+			}
+		}
+
+
+
+		//Probability_Final_Project_3_INFINITE_LOOP_MODE輸出
+#if Probability_Final_Project_3_INFINITE_LOOP_MODE
+		cpp_dec_float_numberOfExperimentRepeated += 1;
+		ull_numberOfExperimentRepeated += 1;
+
+		if (ull_numberOfExperimentRepeated % AFTER_X_EXPERIMENT_PRINT == 0)
+		{
+			std::cout << "Number of experiment repeated: " << cpp_dec_float_numberOfExperimentRepeated << '\n';
+			std::cout << "Allen Success:" << AllenSuccess << '\n';
+			std::cout << "Benjamin Success:" << cpp_dec_float_numberOfExperimentRepeated - AllenSuccess << '\n';
+
+			std::cout << "Allen Probability: " << std::setprecision(PRECISION) << (AllenSuccess) / (cpp_dec_float_numberOfExperimentRepeated) << '\n';
+			std::cout << "Benjamin Probability: " << std::setprecision(PRECISION) << (cpp_dec_float_numberOfExperimentRepeated - AllenSuccess) / (cpp_dec_float_numberOfExperimentRepeated) << '\n';
+			std::cout << '\n';
+		}
+
+#endif//Probability_Final_Project_3_INFINITE_LOOP_MODE
+
 	}
 
 
-void funcPart02()
-{
+	//正常輸出
+#if Probability_Final_Project_3_INFINITE_LOOP_MODE == false
+	std::cout << "Number of experiment repeated: " << NUMBER_OF_EXPERIMENT_REPEATED << '\n';
+	std::cout << "Allen Success:" << AllenSuccess << '\n';
+	std::cout << "Benjamin Success:" << NUMBER_OF_EXPERIMENT_REPEATED - AllenSuccess << '\n';
 
+	std::cout << "Allen Probability: " << std::setprecision(PRECISION) << (AllenSuccess) / (NUMBER_OF_EXPERIMENT_REPEATED) << '\n';
+	std::cout << "Benjamin Probability: " << std::setprecision(PRECISION) << (NUMBER_OF_EXPERIMENT_REPEATED - AllenSuccess) / (NUMBER_OF_EXPERIMENT_REPEATED) << '\n';
+#endif //Probability_Final_Project_3_INFINITE_LOOP_MODE == false
+
+	//A :46/90 = 0.51111111111
+	//B: 44/90 = 0.48888888888
+#endif//Probability_Final_Project_3_STOP
 }
 
+
+#include <math.h>
+
+
+class Probability
+{
+public:
+
+	Probability(double up, double down) : up(up), down(down) {}
+public:
+	double up;
+	double down;
+};
+
+inline double Geometric_Expected_Value(Probability p)
+{
+	return (p.down - p.up) / p.up/*失敗的次數*/ + 1/*成功算一次*/;
+}
+
+inline double Geometric_Variance_Value(Probability p)
+{
+	return (p.down - p.up) * p.down / (p.up * p.up);
+}
+
+//選擇性: 停用
+#define Probability_Final_Project_4_STOP true
+
+
+/*Probability Final Project -4*/
 void funcPart03()
 {
+#if !Probability_Final_Project_4_STOP
+	// 6/6 + 5/6 + 4/6 + 3/6 + 2/6 + 1/6
+	//(1-p)/p
+	Probability probablilty1(6, 6);
+	Probability probablilty2(5, 6);
+	Probability probablilty3(4, 6);
+	Probability probablilty4(3, 6);
+	Probability probablilty5(2, 6);
+	Probability probablilty6(1, 6);
+	double expectedValue = Geometric_Expected_Value(probablilty1) +
+		Geometric_Expected_Value(probablilty2) +
+		Geometric_Expected_Value(probablilty3) +
+		Geometric_Expected_Value(probablilty4) +
+		Geometric_Expected_Value(probablilty5) +
+		Geometric_Expected_Value(probablilty6);
 
+	double varianceValue = Geometric_Variance_Value(probablilty1) +
+		Geometric_Variance_Value(probablilty2) +
+		Geometric_Variance_Value(probablilty3) +
+		Geometric_Variance_Value(probablilty4) +
+		Geometric_Variance_Value(probablilty5) +
+		Geometric_Variance_Value(probablilty6);
 
-
+	std::cout << "expectedValue: " << expectedValue << '\n';
+	std::cout << "varianceValue: " << varianceValue << '\n';
+	std::cout << "E[X^2]: " << expectedValue * expectedValue + varianceValue << '\n';
+#endif //Probability_Final_Project_4_STOP
 }
 
+
+
+
+ull doExperiment(double p)
+{
+	ull expectedValue = 0;
+	std::pair<int, int> HeadTail = std::make_pair(0, 0);//儲存抽到的(Head,Tail)
+
+	while (true) {
+		if (HeadTail.first >= 2 && HeadTail.second >= 1) {
+			break;
+		}
+		expectedValue += 1;
+
+		if ((double)rand() / (double)RAND_MAX < p) {//head
+			HeadTail.first += 1;
+		}
+		else {//tail
+			HeadTail.second += 1;
+		}
+	}
+	return expectedValue;
+}
+
+
+//選擇性: 停用
+#define Probability_Final_Project_5_STOP true
+//選擇性: 無限進行實驗
+#define Probability_Final_Project_5_INFINITE_LOOP_MODE true
+
+/*Probability Final Project -5*/
 void funcPart04()
 {
+#if !Probability_Final_Project_5_STOP
+
+	//隨機數生成器
+	srand(time(NULL));
+
+	//輸出設定
+#if !Probability_Final_Project_5_INFINITE_LOOP_MODE
+	//常數
+	PRECISION_float NUMBER_OF_EXPERIMENT_REPEATED = 100000;//做幾次實驗
+#else//Probability_Final_Project_5_INFINITE_LOOP_MODE
+	//常數
+	cull AFTER_X_EXPERIMENT_PRINT = 10000000;//模擬x次後輸出1次
+
+	//變量
+	PRECISION_float cpp_dec_float_numberOfExperimentRepeated = 0;
+	ull ull_numberOfExperimentRepeated = 0;
+#endif//Probability_Final_Project_5_INFINITE_LOOP_MODE
+
+	//機率常數
+	double p1 = 0.55;
+	double p2 = 0.60608454;
+	double p3 = 0.65;
+
+	//p=head, at least 2heads 1 tail
+	PRECISION_float sumExpectedValueP1 = 0;
+	PRECISION_float sumExpectedValueP2 = 0;
+	PRECISION_float sumExpectedValueP3 = 0;
+
+#if Probability_Final_Project_5_INFINITE_LOOP_MODE
+	while (true)
+	{
+#else
+	for (int j = 0; j < NUMBER_OF_EXPERIMENT_REPEATED; j++)
+	{
+#endif
+		sumExpectedValueP1 += doExperiment(p1);
+		sumExpectedValueP2 += doExperiment(p2);
+		sumExpectedValueP3 += doExperiment(p3);
+
+		//Probability_Final_Project_5_INFINITE_LOOP_MODE輸出
+#if Probability_Final_Project_5_INFINITE_LOOP_MODE
+		cpp_dec_float_numberOfExperimentRepeated += 1;
+		ull_numberOfExperimentRepeated += 1;
+
+		if (ull_numberOfExperimentRepeated % AFTER_X_EXPERIMENT_PRINT == 0) {
+			std::cout << "Number of experiment repeated: " << cpp_dec_float_numberOfExperimentRepeated << '\n';
+			std::cout << "p1 Expected Value Average:" << sumExpectedValueP1 / cpp_dec_float_numberOfExperimentRepeated << '\n';
+			std::cout << "p2 Expected Value Average:" << sumExpectedValueP2 / cpp_dec_float_numberOfExperimentRepeated << '\n';
+			std::cout << "p3 Expected Value Average:" << sumExpectedValueP3 / cpp_dec_float_numberOfExperimentRepeated << '\n';
+			std::cout << '\n';
+		}
+#endif//Probability_Final_Project_5_INFINITE_LOOP_MODE
+	}
+	//正常模式輸出
+#if !Probability_Final_Project_5_INFINITE_LOOP_MODE
+	std::cout << "Number of experiment repeated: " << NUMBER_OF_EXPERIMENT_REPEATED << '\n';
+	std::cout << "p1 Expected Value Average:" << sumExpectedValueP1 / NUMBER_OF_EXPERIMENT_REPEATED << '\n';
+	std::cout << "p2 Expected Value Average:" << sumExpectedValueP2 / NUMBER_OF_EXPERIMENT_REPEATED << '\n';
+	std::cout << "p3 Expected Value Average:" << sumExpectedValueP3 / NUMBER_OF_EXPERIMENT_REPEATED << '\n';
+#endif//Probability_Final_Project_5_INFINITE_LOOP_MODE
 
 
-
+#endif//Probability_Final_Project_5_STOP
 }
 
 
+//選擇性: 停用
+#define Probability_Final_Project_6_STOP false
+
+/*Probability Final Project -6*/
 void funcPart05()
 {
+#if !Probability_Final_Project_6_STOP 
 
+	//常數
+	double NUMBER_OF_EXPERIMENT_REPEATED = 1000000000;//做幾次實驗
+
+	double fy[71] = { 0.0 };
+
+	for (int j = 0; j < NUMBER_OF_EXPERIMENT_REPEATED; j++)
+	{
+		double y = (rand() / (RAND_MAX / 8.0) - 4.0) +
+			(rand() / (RAND_MAX / 8.0) - 4.0) +
+			(rand() / (RAND_MAX / 8.0) - 4.0) +
+			(rand() / (RAND_MAX / 8.0) - 4.0) +
+			(rand() / (RAND_MAX / 8.0) - 4.0) +
+			(rand() / (RAND_MAX / 8.0) - 4.0) +
+			(rand() / (RAND_MAX / 8.0) - 4.0) +
+			(rand() / (RAND_MAX / 8.0) - 4.0) +
+			(rand() / (RAND_MAX / 8.0) - 4.0) +
+			(rand() / (RAND_MAX / 8.0) - 4.0) +
+			(rand() / (RAND_MAX / 8.0) - 4.0) +
+			(rand() / (RAND_MAX / 8.0) - 4.0);
+		if (y >= -35.5 && y < 35.5) {
+			int k = (int)(y + 35.5);
+			fy[k] += 1;
+		}
+	}
+
+	for (int i = 0; i < sizeof(fy) / sizeof(fy[0]); i++)
+	{
+		fy[i] = fy[i] / NUMBER_OF_EXPERIMENT_REPEATED;
+	}
+
+	for (int i = 0; i < sizeof(fy) / sizeof(fy[0]); i++)
+	{
+		std::cout << fy[i] << " ";
+	}
+
+	////檢驗和=1
+	//double sum = 0;
+	//for (int i = 0; i < sizeof(fy) / sizeof(fy[0]); i++)
+	//{
+	//	sum += fy[i];
+	//}
+	//std::cout << '\n'<<sum << '\n';
+
+#endif //Probability_Final_Project_6_STOP
 }
 
 
